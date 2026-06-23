@@ -1,0 +1,67 @@
+========================================================
+ RAG4 - Commands to run standalone.py
+ (Run in PowerShell, folder: D:\GitHub\RAG4)
+========================================================
+
+--------------------------------------------------------
+STEP 0: Go into the folder (if not already there)
+--------------------------------------------------------
+cd D:\GitHub\RAG4
+
+
+--------------------------------------------------------
+STEP 1: Create virtual environment (venv)  [only once]
+--------------------------------------------------------
+python -m venv venv
+
+
+--------------------------------------------------------
+STEP 2: ACTIVATE the venv
+--------------------------------------------------------
+# For PowerShell:
+.\venv\Scripts\Activate.ps1
+
+# If the command above gives a "scripts disabled / execution policy" error,
+# run this first (only once), then activate again:
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# If you are using CMD (Command Prompt) instead, use:
+venv\Scripts\activate.bat
+
+# After activation, the line starts with (venv).
+
+
+--------------------------------------------------------
+STEP 3: Upgrade pip + install requirements  [only once]
+--------------------------------------------------------
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+
+--------------------------------------------------------
+STEP 4: Run the server
+--------------------------------------------------------
+uvicorn standalone:app --reload --host 0.0.0.0 --port 8000
+
+
+--------------------------------------------------------
+STEP 5: Test in the browser
+--------------------------------------------------------
+http://localhost:8000/health     -> check if server is OK
+http://localhost:8000/docs       -> to test upload / query
+
+
+--------------------------------------------------------
+To DEACTIVATE (close) the venv:
+--------------------------------------------------------
+deactivate
+
+
+========================================================
+ NOTE:
+ - To use the /query endpoint, this folder must have a
+   .env file with this line:
+       GROQ_API_KEY=put_your_groq_key_here
+ - The .env file is NOT required just to start the server.
+ - To stop the server, press CTRL + C in the terminal.
+========================================================
