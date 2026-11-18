@@ -8,12 +8,12 @@ A lightweight **Retrieval-Augmented Generation (RAG)** service. Upload your docu
 
 ## ✨ Features
 
-- 📤 **Document Upload** — ingest PDF, `.txt`, `.md`, and `.log` files
+- 📤 **Document Upload** — ingest `.PDF`, `.txt`, `.md`, and `.log` files
 - ✂️ **Smart Chunking** — recursive text splitting with overlap for better context
 - 🔎 **Semantic Search** — vector similarity search powered by ChromaDB
 - 🧠 **Query Refinement** — the raw query is refined before retrieval for better results
 - 💬 **Grounded Answers** — responses are based strictly on your uploaded content
-- ⚡ **Fast LLM** — uses Groq (default model: `llama-3.3-70b-versatile`)
+- ⚡ **Fast LLM** — uses Groq (default model: `openai/gpt-oss-20b`)
 - 🌐 **Interactive Docs** — built-in Swagger UI at `/docs`
 
 ---
@@ -32,20 +32,12 @@ A lightweight **Retrieval-Augmented Generation (RAG)** service. Upload your docu
 
 ## 🚀 Quick Start
 
-### Option 1 — One Click (Windows)
-Just **double-click `start.bat`**. It will:
-1. Create a virtual environment
-2. Install all dependencies
-3. Start the server
+### Option 1 — Manual (Cmd)
 
-Then open: **http://localhost:8000/docs**
-
-### Option 2 — Manual (PowerShell)
-
-```powershell
+```Cmd
 # 1. Create & activate virtual environment
 python -m venv venv
-.\venv\Scripts\Activate.ps1
+.\venv\Scripts\Activate.bat
 
 # 2. Install dependencies
 python -m pip install --upgrade pip
@@ -54,8 +46,17 @@ pip install -r requirements.txt
 # 3. Run the server
 uvicorn standalone:app --reload --host 0.0.0.0 --port 8000
 ```
-
 Open in your browser: **http://localhost:8000/docs**
+
+### Option 2 — One Click (Windows)
+Just **double-click `start.bat`**. It will:
+1. Create a virtual environment
+2. Install all dependencies
+3. Start the server
+
+Then open: **http://localhost:8000/docs**
+
+
 
 > See `COMMANDS.txt` for the full list of commands and troubleshooting.
 
@@ -67,7 +68,7 @@ Create a `.env` file in the project root (a template `.env` is included):
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-20b
 CHROMA_DIR=./chroma_db
 CHROMA_COLLECTION=rag_collection
 EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
@@ -89,8 +90,8 @@ Get a free Groq API key from: https://console.groq.com/keys
 
 ### Example — Query
 
-```json
 POST /query
+```json
 {
   "query": "What is this document about?",
   "top_k": 3,
